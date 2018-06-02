@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: account
+  namespace: default
+data:
+  dummy-account: Zm9vYmFyLWFkbWluCg==
+type: Opaque
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-1
+  namespace: default
+  labels:
+    app: nginx
+    env: nodejs
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.13
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 80
+          protocol: TCP
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html/
+          name: secret-volume
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: account
+      items:
+        - key: dummy-account
+          path: index.html
