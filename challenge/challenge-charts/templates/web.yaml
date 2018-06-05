@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: php-apache
-        image: tachingchen/hpa-example:0.1
+        image: {{ .Values.webServer.image }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12345
