@@ -1,0 +1,42 @@
+# for old k8s cluster:
+# apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-log-collector
+  namespace: default
+  labels:
+    service: log-collector
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+      service: log-collector
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: fluentd
+        service: log-collector
+    spec:
+      containers:
+      # For more information of fluentd image,
+      # please check fluentd directory
+      - image: {{ .Values.fluentd.image }}
+        name: fluentd
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /var/log/nginx
+          name: log-volume
+      volumes:
+      - name: log-volume
+        hostPath:
+          # directory location on host
+          path: /var/log/k8s-daemonset/nginx/
+          # this field is optional
+          # DirectoryOrCreate: create directory if not present
+          type: DirectoryOrCreate

@@ -1,0 +1,7 @@
+apiVersion: v1
+name: challenge-charts
+description: A Helm chart for Kubernetes workshop challenge
+version: 1.0
+maintainers:
+  - name: Ta Ching Chen
+    email: hello@tachingchen.com

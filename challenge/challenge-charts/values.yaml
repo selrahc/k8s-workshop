@@ -1,0 +1,23 @@
+# Default values for challenge-charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+webServer:
+  image: tachingchen/hpa-example:0.1
+  minReplicas: 3
+  maxReplicas: 5
+  hpaCPU: 30
+
+nginx:
+  image: tachingchen/nginx-web-server:0.1
+  minReplicas: 2
+  maxReplicas: 5
+  hpaCPU: 50
+
+fluentd:
+  image: tachingchen/fluentd:0.1
+
+mongodb:
+  # support "gce" or "minikube"
+  pvStorageClassType: minikube
+  replicasetName: rs0

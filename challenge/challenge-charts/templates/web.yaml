@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  namespace: default
+spec:
+  selector:
+    service: web-server
+  ports:
+  - port: 5566
+    protocol: TCP
+    targetPort: 12345
+  # All user requests come from nginx-svc,
+  # so here we choose ClusterIP to prevent
+  # service is exposed to public network.
+  type: ClusterIP
+---
+
+# for old k8s cluster:
+# apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  namespace: default
+  labels:
+    service: web-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: web-server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      # "labels" field is required for metadata
+      # of pod template inside deployment
+      labels:
+        # MUST match the matchLabels of both
+        # deployment & service selector
+        service: web-server
+      # "annotations" fields is optional.
+      annotations:
+        demo: "k8s-workshop"
+    spec:
+      containers:
+      - name: php-apache
+        image: tachingchen/hpa-example:0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 12345
+          protocol: TCP
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "128m"
+          limits:
+            memory: "200Mi"
+            cpu: "200m"
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-server
+  namespace: default
+spec:
+  minReplicas: {{ .Values.webServer.minReplicas }}
+  maxReplicas: {{ .Values.webServer.maxReplicas }}
+  scaleTargetRef:
+    # for old k8s cluster:
+    # apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-server
+  targetCPUUtilizationPercentage: {{ .Values.webServer.hpaCPU }}
