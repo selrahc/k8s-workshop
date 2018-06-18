@@ -1,0 +1,23 @@
+# More skaffold.yaml fields info please visit: 
+# https://github.com/GoogleContainerTools/skaffold/blob/v0.7.0/examples/annotated-skaffold.yaml
+
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - imageName: tachingchen/skaffold-hello-world
+    workspace: codebase
+deploy:
+  helm:
+    releases:
+    - name: skaffold-helm
+      chartPath: chart
+      namespace: skaffold
+      values:
+        # <image>:<value>
+        # The value should be same with artifact image name or skafold will fail to set image
+        image.image: tachingchen/skaffold-hello-world
+        # skaffold v0.7.0 will append image tag automatically when deploy, 
+        # which means that we cannot get tag value from skaffold right now.
