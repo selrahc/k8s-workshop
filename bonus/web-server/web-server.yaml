@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: web-server
-  namespace: default
+  # namespace: default
   labels:
     service: web-server
 spec:

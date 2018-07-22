@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluentd-log-collector
-  namespace: default
+  # namespace: default
   labels:
     service: log-collector
 spec:

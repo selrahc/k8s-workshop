@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-svc
-  namespace: default
+  # namespace: default
 spec:
   selector:
     service: reverse-proxy
@@ -19,7 +19,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: default
+  # namespace: default
   labels:
     service: reverse-proxy
 spec:
@@ -73,7 +73,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: nginx
-  namespace: default
+  # namespace: default
 spec:
   minReplicas: {{ .Values.nginx.minReplicas }}
   maxReplicas: {{ .Values.nginx.maxReplicas }}

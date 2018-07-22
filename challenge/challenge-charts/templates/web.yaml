@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web-svc
-  namespace: default
+  # namespace: default
 spec:
   selector:
     service: web-server
@@ -22,7 +22,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-server
-  namespace: default
+  # namespace: default
   labels:
     service: web-server
 spec:
@@ -68,7 +68,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: web-server
-  namespace: default
+  # namespace: default
 spec:
   minReplicas: {{ .Values.webServer.minReplicas }}
   maxReplicas: {{ .Values.webServer.maxReplicas }}

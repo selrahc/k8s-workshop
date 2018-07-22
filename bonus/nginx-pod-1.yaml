@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: account
-  namespace: default
+  # namespace: default
 data:
   dummy-account: Zm9vYmFyLWFkbWluCg==
 type: Opaque
@@ -12,7 +12,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: nginx-pod-1
-  namespace: default
+  # namespace: default
   labels:
     app: nginx
     env: nodejs
