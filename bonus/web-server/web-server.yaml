@@ -7,9 +7,9 @@ metadata:
     service: web-server
 spec:
   containers:
-    - name: python-web-server
-      image: tachingchen/python-simplehttpserver:0.1
-      imagePullPolicy: IfNotPresent
-      ports:
-        - containerPort: 5566
-          protocol: TCP
+  - name: python-web-server
+    image: tachingchen/python-simplehttpserver:0.1
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 5566
+      protocol: TCP

@@ -8,19 +8,19 @@ metadata:
     env: go
 spec:
   containers:
-    - name: nginx
-      image: nginx:1.13
-      imagePullPolicy: IfNotPresent
-      ports:
-        - containerPort: 80
-          protocol: TCP
-      volumeMounts:
-        - mountPath: /usr/share/nginx/html/
-          name: config-volume
+  - name: nginx
+    image: nginx:1.13
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html/
+      name: config-volume
   volumes:
   - name: config-volume
     configMap:
       name: password
       items:
-        - key: dummy-password
-          path: index.html
+      - key: dummy-password
+        path: index.html

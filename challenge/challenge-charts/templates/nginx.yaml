@@ -41,24 +41,24 @@ spec:
         service: reverse-proxy
     spec:
       containers:
-        - name: nginx
-          # For more details of image, please
-          # check k8s-workshop/bonus/nginx-pod-3
-          image: {{ .Values.nginx.image }}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-              protocol: TCP
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "128m"
-            limits:
-              memory: "200Mi"
-              cpu: "200m"
-          volumeMounts:
-          - name: log-volume
-            mountPath: /var/log/nginx
+      - name: nginx
+        # For more details of image, please
+        # check k8s-workshop/bonus/nginx-pod-3
+        image: {{ .Values.nginx.image }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "128m"
+          limits:
+            memory: "200Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: log-volume
+          mountPath: /var/log/nginx
       volumes:
       - name: log-volume
         hostPath:

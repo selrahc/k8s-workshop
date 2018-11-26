@@ -8,16 +8,16 @@ metadata:
     env: python
 spec:
   containers:
-    - name: nginx
-      image: tachingchen/nginx-web-server:0.1
-      imagePullPolicy: IfNotPresent
-      ports:
-        - containerPort: 80
-          protocol: TCP
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "200Mi"
-          cpu: "200m"
+  - name: nginx
+    image: tachingchen/nginx-web-server:0.1
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "128m"
+      limits:
+        memory: "200Mi"
+        cpu: "200m"

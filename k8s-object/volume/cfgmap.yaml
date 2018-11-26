@@ -22,8 +22,8 @@ spec:
     imagePullPolicy: Always
     name: nginx
     ports:
-      - containerPort: 80
-        protocol: TCP
+    - containerPort: 80
+      protocol: TCP
     volumeMounts:
     - mountPath: /configs
       name: config-volume
@@ -50,8 +50,8 @@ spec:
     imagePullPolicy: Always
     name: nginx
     env:
-      - name: CONFIG_ENV_KEY
-        valueFrom:
-          configMapKeyRef:
-            name: bar
-            key: TEST_KEY
+    - name: CONFIG_ENV_KEY
+      valueFrom:
+        configMapKeyRef:
+          name: bar
+          key: TEST_KEY
