@@ -14,3 +14,8 @@
 ## 活動 2
 
 隊友分工將該架構實現在 kubernetes，若能使用 helm charts 實現更佳
+
+
+## 架構解答
+
+![](./assets/tw-2.png)
